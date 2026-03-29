@@ -4,7 +4,7 @@
   let { data } = $props();
   let selected = $state(null);
 
-  let headline = 'Recent Film Permits';
+  let headline = "NYC's Dirtiest Detectives";
   let byline = 'NYCity News Service';
   let pubDate = '2026-03-16';
 </script>
@@ -23,10 +23,10 @@
 
 <div class="wide-container">
   <div class="permits">
-    {#each data.permits as permit (permit.eventid)}
-      <div class="card" onclick={() => selected = permit}>
-        <h3>{permit.category}</h3>
-        <p>{permit.borough}</p>
+    {#each data.officers as detective (detective.shield_no)}
+      <div class="card" onclick={() => (selected = detective)}>
+        <h3>{detective.officer_first_name} {detective.officer_last_name}</h3>
+        <p>has {detective.total_substantiated_complaints} substantiated complaints against them </p>
       </div>
     {/each}
   </div>
@@ -36,11 +36,11 @@
   <div class="overlay" onclick={() => selected = null}>
     <div class="popup" onclick={(e) => e.stopPropagation()}>
       <button class="close-btn" onclick={() => selected = null}>&times;</button>
-      <h2>{selected.subcategoryname}</h2>
-      <p><strong>Category:</strong> {selected.category}</p>
-      <p><strong>Location:</strong> {selected.parkingheld}</p>
-      <p><strong>Borough:</strong> {selected.borough}</p>
-      <p><strong>Date:</strong> {selected.enteredon}</p>
+      <h2> There are {selected.total_complaints} complaints against this detective</h2>
+      <p><strong>Race:</strong> {selected.officer_race}</p>
+      <p><strong> Gender:</strong> {selected.officer_gender}</p>
+      <p><strong>Shield Number:</strong> {selected.shield_no}</p>
+      <p><strong>Last Reported Active:</strong> {selected.last_reported_active_date}</p>
     </div>
   </div>
 {/if}
